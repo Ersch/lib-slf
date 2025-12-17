@@ -1,0 +1,272 @@
+/* ========================================
+   TYPOGRAPHY SYSTEM
+   ======================================== */
+
+/* Base font size for rem calculations */
+:root {
+  font-size: 16px;
+}
+
+/* ========================================
+   DESKTOP (Default - 1440px+)
+   ======================================== */
+
+/* Headings */
+
+.heading-1 {
+  font-size: 215px;
+  line-height: 195px;
+  font-weight: 500;
+  /* Medium */
+  letter-spacing: 0;
+}
+
+.heading-2 {
+  font-size: 82px;
+  line-height: 82px;
+  font-weight: 500;
+  /* Medium */
+  letter-spacing: 0;
+}
+
+.heading-3 {
+  font-size: 51px;
+  line-height: 51px;
+  font-weight: 500;
+  /* Medium */
+  letter-spacing: 0;
+}
+
+.heading-4 {
+  font-size: 19px;
+  line-height: 19px;
+  font-weight: 500;
+  /* Medium */
+  letter-spacing: 0;
+}
+
+.heading-5 {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  /* Regular */
+  letter-spacing: 0;
+}
+
+/* Body Text */
+
+.body-1,
+.valeurs {
+  font-size: 31px;
+  line-height: 36px;
+  font-weight: 400;
+  /* Regular */
+  letter-spacing: 0;
+}
+
+.body-2,
+.works {
+  font-size: 19px;
+  line-height: 22px;
+  font-weight: 400;
+  /* Regular */
+  letter-spacing: 0;
+}
+
+/* Specific Use Cases */
+
+/* H1 - Work, About, Services pages */
+.page-title {
+  font-size: 215px;
+  line-height: 195px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* H2 - Introduction + Valeurs sections */
+.section-intro,
+.section-valeurs {
+  font-size: 82px;
+  line-height: 82px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* H3 - Sous-titre Section */
+.section-subtitle {
+  font-size: 51px;
+  line-height: 51px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* H4 - Menu + section */
+.menu-item,
+.section-label {
+  font-size: 19px;
+  line-height: 19px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+/* H5 - Footer + social */
+.footer-text,
+.social-link {
+  font-size: 12px;
+  line-height: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* B1 - Texte pour valeurs */
+.valeurs-text {
+  font-size: 31px;
+  line-height: 36px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* B2 - Texte pour case + Menu */
+.case-text,
+.menu-text {
+  font-size: 19px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* ========================================
+   TABLET (768px - 1439px)
+   ======================================== */
+
+@media (max-width: 1439px) {
+
+  .heading-1,
+  .page-title {
+    font-size: 120px;
+    line-height: 110px;
+  }
+
+  .heading-2,
+  .section-intro,
+  .section-valeurs {
+    font-size: 56px;
+    line-height: 56px;
+  }
+
+  .heading-3,
+  .section-subtitle {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  .heading-4,
+  .menu-item,
+  .section-label {
+    font-size: 18px;
+    line-height: 18px;
+  }
+
+  .heading-5,
+  .footer-text,
+  .social-link {
+    font-size: 11px;
+    line-height: 11px;
+  }
+
+  .body-1,
+  .valeurs,
+  .valeurs-text {
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .body-2,
+  .works,
+  .case-text,
+  .menu-text {
+    font-size: 16px;
+    line-height: 20px;
+  }
+}
+
+/* ========================================
+   MOBILE (320px - 767px)
+   ======================================== */
+
+@media (max-width: 767px) {
+
+  h1,
+  .page-title {
+    font-size: 64px;
+    line-height: 60px;
+  }
+
+  h2,
+  .section-intro,
+  .section-valeurs {
+    font-size: 36px;
+    line-height: 36px;
+  }
+
+  h3,
+  .section-subtitle {
+    font-size: 24px;
+    line-height: 24px;
+  }
+
+  h4,
+  .menu-item,
+  .section-label {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  h5,
+  .footer-text,
+  .social-link {
+    font-size: 10px;
+    line-height: 10px;
+  }
+
+  .body-1,
+  .valeurs,
+  .valeurs-text {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .body-2,
+  .works,
+  .case-text,
+  .menu-text {
+    font-size: 14px;
+    line-height: 18px;
+  }
+}
+
+/* ========================================
+   SMALL MOBILE (max 375px)
+   ======================================== */
+
+@media (max-width: 375px) {
+
+  h1,
+  .page-title {
+    font-size: 48px;
+    line-height: 46px;
+  }
+
+  h2,
+  .section-intro,
+  .section-valeurs {
+    font-size: 28px;
+    line-height: 28px;
+  }
+
+  h3,
+  .section-subtitle {
+    font-size: 20px;
+    line-height: 20px;
+  }
+}

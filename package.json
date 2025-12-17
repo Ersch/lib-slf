@@ -1,0 +1,30 @@
+{
+  "name": "lib-slf",
+  "version": "0.1.0",
+  "description": "Reusable SEO-optimized Astro layout components",
+  "type": "module",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts",
+    "./BaseLayout.astro": "./src/layouts/BaseLayout.astro",
+    "./styles": "./src/styles/global.css",
+    "./typography": "./src/styles/typography.css"
+  },
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "astro",
+    "layout",
+    "seo",
+    "components"
+  ],
+  "peerDependencies": {
+    "astro": "^5.0.0",
+    "aos": "^2.3.4"
+  },
+  "devDependencies": {
+    "@types/aos": "^3.0.7",
+    "@types/bun": "latest"
+  }
+}

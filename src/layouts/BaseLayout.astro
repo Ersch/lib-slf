@@ -1,0 +1,226 @@
+---
+import "../styles/global.css";
+import ogDefault from "../assets/og-default.svg";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: string;
+
+  // Site configuration (required for SEO)
+  siteConfig: {
+    name: string;
+    author: string;
+    publisher: string;
+    baseUrl: string;
+  };
+
+  // Optional SEO fields
+  structuredData?: object;
+  alternateUrls?: {
+    fr?: string;
+    en?: string;
+  };
+  ogImage?: string;
+  ogImageAlt?: string;
+  ogType?: string;
+
+  // Optional feature flags
+  enableAOS?: boolean;
+  enableFooterTransition?: boolean;
+  enableTypography?: boolean;
+
+  // Optional custom fonts
+  customFonts?: string[];
+}
+
+const {
+  title,
+  description,
+  lang,
+  siteConfig,
+  structuredData,
+  alternateUrls,
+  ogImage,
+  ogImageAlt,
+  ogType = "website",
+  enableAOS = true,
+  enableFooterTransition = false,
+  enableTypography = true,
+  customFonts = [],
+} = Astro.props;
+
+// Import typography conditionally
+if (enableTypography) {
+  await import("../styles/typography.css");
+}
+
+const { name: siteName, author, publisher, baseUrl } = siteConfig;
+const currentUrl = Astro.url.href;
+const pathname = Astro.url.pathname;
+
+// Configuration des liens hreflang
+// Génération automatique des URLs alternatives si non fournies
+const hreflangUrls = alternateUrls || {
+  en: pathname.startsWith("/fr/")
+    ? `${baseUrl}${pathname.replace("/fr/", "/")}`
+    : `${baseUrl}${pathname}`,
+  fr: pathname.startsWith("/fr/")
+    ? `${baseUrl}${pathname}`
+    : `${baseUrl}/fr${pathname}`,
+};
+
+// Déterminer la langue actuelle pour le tag self-referencing
+const currentLang = lang === "fr-FR" ? "fr" : "en";
+
+// Open Graph locale
+const ogLocale = lang === "fr-FR" ? "fr_CA" : "en_US";
+
+// Image Open Graph par défaut
+const defaultOgImage = ogDefault.src;
+const finalOgImage = ogImage || defaultOgImage;
+const finalOgImageAlt = ogImageAlt || `${siteName} Logo`;
+---
+
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Custom Fonts -->
+    {customFonts.map((fontUrl) => (
+      <link rel="stylesheet" href={fontUrl} />
+    ))}
+
+    <!-- SEO Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={currentUrl} />
+    <meta name="author" content={author} />
+    <meta name="publisher" content={publisher} />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:image" content={finalOgImage} />
+    <meta property="og:image:alt" content={finalOgImageAlt} />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content={ogLocale} />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={finalOgImage} />
+    <meta name="twitter:image:alt" content={finalOgImageAlt} />
+
+    <!-- Hreflang Tags -->
+    <link rel="alternate" hreflang={currentLang} href={currentUrl} />
+    <link rel="alternate" hreflang="en" href={hreflangUrls.en} />
+    <link rel="alternate" hreflang="fr" href={hreflangUrls.fr} />
+    <link rel="alternate" hreflang="x-default" href={hreflangUrls.en} />
+
+    <!-- Structured Data (JSON-LD) -->
+    {
+      structuredData && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(structuredData)}
+        />
+      )
+    }
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+
+    {enableAOS && (
+      <script>
+        import AOS from "aos";
+
+        const aosConfig = {
+          duration: 800,
+          easing: "ease-in-out" as const,
+          once: false,
+          offset: 50,
+          delay: 0,
+        };
+
+        function initAOS() {
+          AOS.init(aosConfig);
+        }
+
+        function resetAOS() {
+          AOS.refresh();
+        }
+
+        // Init au chargement
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initAOS);
+        } else {
+          initAOS();
+        }
+
+        // Réinit sur navigation Astro
+        document.addEventListener("astro:page-load", resetAOS);
+        document.addEventListener("astro:after-swap", resetAOS);
+        document.addEventListener("astro:before-preparation", () => {
+          AOS.refreshHard();
+        });
+
+        // Expose pour Alpine
+        (window as any).AOSUtils = { init: initAOS, reset: resetAOS };
+      </script>
+    )}
+
+    {enableFooterTransition && (
+      <script>
+        function checkFooterVisibility() {
+          const footer = document.querySelector("footer");
+          const body = document.body;
+
+          if (!footer) return;
+
+          const footerRect = footer.getBoundingClientRect();
+          const windowHeight = window.innerHeight;
+
+          // Le footer devient visible quand son haut atteint le quart de l'écran
+          if (footerRect.top <= windowHeight * 0.25) {
+            body.style.backgroundColor = "#000";
+            body.style.color = "white";
+            footer.style.backgroundColor = "#000";
+            footer.style.color = "white";
+          } else {
+            body.style.backgroundColor = "#fff";
+            body.style.color = "black";
+            footer.style.backgroundColor = "#fff";
+            footer.style.color = "black";
+          }
+        }
+
+        // Initialiser la transition
+        function initBackgroundTransition() {
+          window.addEventListener("scroll", checkFooterVisibility);
+          checkFooterVisibility();
+        }
+
+        // Init au chargement
+        if (document.readyState === "loading") {
+          document.addEventListener("DOMContentLoaded", initBackgroundTransition);
+        } else {
+          initBackgroundTransition();
+        }
+
+        // Réinit sur navigation Astro
+        document.addEventListener("astro:page-load", initBackgroundTransition);
+      </script>
+    )}
+  </body>
+</html>

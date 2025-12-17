@@ -1,0 +1,66 @@
+@import "aos/dist/aos.css";
+
+/* Masque les éléments marqués x-cloak tant qu'Alpine n'est pas initialisé */
+[x-cloak] {
+    display: none !important;
+}
+
+:root {
+    --font-primary: 'Helvetica Neue', Arial, sans-serif;
+    --font-secondary: 'Helvetica Neue Medium', Arial, sans-serif;
+    --font-light: 'Helvetica Neue Light', Arial, sans-serif;
+    --color-text: #000000;
+    --color-bg: #ffffff;
+    --color-accent: #000000;
+    --transition-fast: 200ms ease;
+    --transition-medium: 300ms ease;
+    --transition-slow: 500ms ease;
+}
+
+body {
+    font-family: var(--font-primary);
+}
+
+/* Reset and base styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: var(--font-light);
+    scroll-behavior: smooth;
+    text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    color: var(--color-text);
+    background-color: var(--color-bg);
+}
+
+/* Skip links for accessibility */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--color-accent);
+    color: var(--color-bg);
+    padding: 8px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: 600;
+    z-index: 1000;
+    transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+    top: 6px;
+}
