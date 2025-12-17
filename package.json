@@ -8,7 +8,8 @@
     ".": "./src/index.ts",
     "./BaseLayout.astro": "./src/layouts/BaseLayout.astro",
     "./styles": "./src/styles/global.css",
-    "./typography": "./src/styles/typography.css"
+    "./typography": "./src/styles/typography.css",
+    "./types": "./src/types.ts"
   },
   "files": [
     "src"
